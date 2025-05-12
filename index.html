@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Мероприятия</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-calendar@2.5.1/build/vanilla-calendar.min.css" />
+</head>
+<body>
+
+  <!-- ─── Модалка ввода данных ───────────────────────────────────── -->
+  <div id="user-info-modal" class="modal">
+    <div class="modal-content">
+      <h2>Введите свои данные</h2>
+      <label for="fullNameInput">ФИО:</label>
+      <input type="text" id="fullNameInput" />
+      <label for="classInput">Класс:</label>
+      <input type="text" id="classInput" />
+      <button onclick="saveUserInfo()">Сохранить</button>
+    </div>
+  </div>
+
+  <!-- ─── Модалка администратора (заявки) ─────────────────────────── -->
+  <div id="admin-modal" class="modal">
+    <div class="modal-content">
+      <h2>Заявки</h2>
+      <ul id="admin-registrations"></ul>
+      <button onclick="closeAdminModal()">Закрыть</button>
+    </div>
+  </div>
+
+  <!-- ─── Меню ────────────────────────────────────────────────────── -->
+  <nav>
+    <button onclick="showSection('events')">Мероприятия</button>
+    <button onclick="showSection('profile')">Профиль</button>
+    <button onclick="showSection('rewards')">Вознаграждения</button>
+    <button onclick="resetAllData()">Сброс данных</button>
+    <button onclick="showSection('leaderboard')">🏅 Рейтинг</button>
+    <button id="themeToggle" onclick="toggleTheme()">🌙</button>
+  </nav>
+
+  <!-- ─── Секция мероприятий ─────────────────────────────────────── -->
+  <section id="events-section" class="section">
+    <h2>Список мероприятий</h2>
+
+    <ul id="events-list"></ul>
+
+    <!-- форма администратора -->
+    <div id="admin-add-event" style="display:none;">
+      <h3>Добавить новое мероприятие</h3>
+      <label>Название:<input id="newEventTitle"        type="text"   /></label>
+      <label>Описание:<input id="newEventDescription"  type="text"   /></label>
+      <label>Дата:<input       id="newEventDate"       type="text"   placeholder="11.11.2025" /></label>
+      <label>Баллы:<input      id="newEventPoints"     type="number" /></label>
+      <button onclick="addEvent()">Добавить</button>
+    </div>
+  </section>
+
+  <!-- ─── Профиль ────────────────────────────────────────────────── -->
+  <section id="profile-section" class="section" style="display:none;">
+    <h2>Профиль</h2>
+    <p>ФИО:   <span id="profileName"></span></p>
+    <p>Класс: <span id="profileClass"></span></p>
+    <p>Баллы: <span id="profilePoints"></span></p>
+
+    <h2>🏆 Достижения</h2>
+    <ul id="achievements-list"></ul>
+
+    <h2>🎁 Полученные награды</h2>
+    <ul id="reward-history"></ul>
+  </section>
+
+<!-- ─── Вознаграждения ───────────────────────────────── -->
+<section id="rewards-section"   class="section" style="display:none;">
+  <h1>🛍 Вознаграждения</h1>
+  <div id="rewards-container"></div>   <!-- сюда вставляются reward‑карточки -->
+</section>
+
+<!-- ─── Рейтинг ──────────────────────────────────────── -->
+<section id="leaderboard-section" class="section" style="display:none;">
+  <h1>🏅 Рейтинг</h1>
+  <table id="leaderboard-table">
+    <thead>
+      <tr><th>Место</th><th>ФИО</th><th>Класс</th><th>Баллы</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <h2 style="margin-top:32px">🏫 Рейтинг классов</h2>
+  <table id="class-table">
+    <thead>
+      <tr><th>#</th><th>Класс</th><th>Средний балл</th><th>Участников</th></tr>
+    </thead>
+    <tbody></tbody>   <!-- <‑‑  ОБЯЗАТЕЛЬНО!  -->
+  </table>
+  
+</section>
+
+  <!-- ─── (другие секции: календарь, награды и т.д. остались как были) -->
+
+  <div id="toast" style="display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%); padding:10px 18px; border-radius:10px; font-size:15px; color:#fff; z-index:999;"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-calendar@2.5.1/build/vanilla-calendar.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
